@@ -2,6 +2,7 @@ package com.trendyol.bootcamp.spring.ch04.repository.restaurant;
 
 import com.trendyol.bootcamp.spring.ch04.domain.Percentage;
 import com.trendyol.bootcamp.spring.ch04.domain.Restaurant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.sql.DataSource;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.stereotype.Repository;
 
 /**
  * Loads restaurants from a data source using the JDBC API.
@@ -45,6 +47,7 @@ import java.util.Map;
  *   We will fix this error in the next step.
  */
 
+	@Repository
 public class JdbcRestaurantRepository implements RestaurantRepository {
 
 	private DataSource dataSource;
@@ -60,6 +63,7 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
 	 * restaurants. When the instance of JdbcRestaurantRepository is created, a
 	 * Restaurant cache is populated for read only access
 	 */
+	@Autowired
 
 	public JdbcRestaurantRepository(DataSource dataSource) {
 		this.dataSource = dataSource;

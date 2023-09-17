@@ -10,6 +10,7 @@ import com.trendyol.bootcamp.spring.ch04.service.RewardNetwork;
 import com.trendyol.bootcamp.spring.ch04.service.RewardNetworkImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
@@ -18,19 +19,21 @@ import javax.sql.DataSource;
  * TODO-07: Perform component-scanning and run the test again
  * - Add an appropriate annotation to this class to cause component scanning.
  * - Set the base package to pick up all the classes we have annotated so far.
- * - Save all changes, Re-run the RewardNetworkTests.  It should now pass.
+ * - Save all changes, Re-run the .  It should now pass.
  */
 @Configuration
+@ComponentScan({"com.trendyol.bootcamp.spring.ch04.repository",
+		"com.trendyol.bootcamp.spring.ch04.service"})
 public class RewardsConfig {
 
 	DataSource dataSource;
 
-	@Autowired
-	public RewardsConfig(DataSource dataSource) {
+	// @Autowired
+	/* public RewardsConfig(DataSource dataSource) {
 		this.dataSource = dataSource;
-	}
+	} */
 		
-	@Bean
+	// @Bean
 	public RewardNetwork rewardNetwork(){
 		return new RewardNetworkImpl(
 			accountRepository(), 
@@ -38,20 +41,20 @@ public class RewardsConfig {
 			rewardRepository());
 	}
 	
-	@Bean
+	// @Bean
 	public AccountRepository accountRepository(){
 		JdbcAccountRepository repository = new JdbcAccountRepository();
 		repository.setDataSource(dataSource);
 		return repository;
 	}
 	
-	@Bean
+	// @Bean
 	public RestaurantRepository restaurantRepository(){
 		JdbcRestaurantRepository repository = new JdbcRestaurantRepository(dataSource);
 		return repository;
 	}
 	
-	@Bean
+	// @Bean
 	public RewardRepository rewardRepository(){
 		JdbcRewardRepository repository = new JdbcRewardRepository();
 		repository.setDataSource(dataSource);
